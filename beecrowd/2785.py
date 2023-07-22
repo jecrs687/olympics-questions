@@ -6,9 +6,8 @@ for x in range(quantity):
 min_value = float('inf')
 last_layer = sum(values[-1])
 memoization = {}
-path = {}
 def verify(sub_layers, x, y, total, deep=0):
-        global min_value, last_layer
+        global last_layer
         to_slice = y+1 
         layers = sub_layers.copy()
         if len(layers)==1:
