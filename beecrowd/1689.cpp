@@ -52,17 +52,26 @@ int maximum(int current, int value, int *values,  int *memo,  int *profits)
     if (current  == n)
         return value;
     if (memo[current] != -1)
-        return memo[current] + value;    
+        return memo[current] + value;     
     int next = current+1;
-    int b =  maximum(
+    int b = 
+    ( next + 1 < n && values[next] - values[current] > k && values[next + 1] - values[next] > k )
+    ?0
+    :maximum(
             next,
             value,
             values,
             memo, profits);
     if(values[current] + k > maxDistance + 10)
         return value + profits[current];
-    while(next < n && values[next] - values[current] < k)
+    while(next < n && values[next] - values[current] < k &&  values[next] + k < maxDistance + 10)
         next++;
+    int temp = current+1;
+    while(temp < next && values[next] - values[temp] > k){
+        if(profits[temp] > profits[current])
+            current = temp;
+        temp++;
+    }
     int a = maximum(
         next,
         value + profits[current],
@@ -76,7 +85,6 @@ int maximum(int current, int value, int *values,  int *memo,  int *profits)
 signed main()
 {
     optimize;
-
     int t;
     cin >> t;
     vi ans;
@@ -86,20 +94,20 @@ signed main()
         int values[n];
         int profits[n];
         int memo[n];
+        vi values2;
+        vi profits2;
+
         memset(values, 0, sizeof(values));
         memset(memo, -1, sizeof(memo));
         memset(profits, 0, sizeof(profits));
-        maxDistance = 0;
         for (int i = 0; i < n; i++)
-            {
                 cin >> values[i];
-                if(values[i] > maxDistance)
-                    maxDistance = values[i];    
-            }
+            
         
         for (int i = 0; i < n; i++)
             cin >> profits[i];
-        
+        int limit = n;
+        maxDistance = values[n-1];
         int maxi = maximum(0, 0, values, memo, profits);
         ans.PB(maxi);
     }

@@ -33,8 +33,6 @@ using namespace std;
 #define INF 1e9 + 10
 
 typedef long long ll;
-#define oldint int
-#define int ll
 
 typedef vector<ll> vi;
 typedef pair<ll, ll> ii;
@@ -65,42 +63,39 @@ void search(int k, int sum, map<int, int> &values, vi &ans, vi &possibles)
 signed main()
 {
     optimize;
-
-    int x;
-    cin >> x;
-    while (x--)
+    ll v[10005];    
+    ll sum;
+    int n;
+    
+    int cases;
+    bool ok;
+    
+    cin >> cases;
+    
+    while (cases--)
     {
-        int total;
-        cin >> total;
-        int limit = total;
-        map<int, int> values;
-
-        while (total--)
+        cin >> n;
+        ok = false;
+        for (int i = 0 ; i < n ; ++i)
         {
-            int value;
-            cin >> value;
-            values[value]++;
+            cin >> v[i];
+            
+            if (v[i] == 1) ok = true;
         }
-        int minPossible = INF;
-        vi possibles;
-        set<int> ans;
-        int gap = 0;
-        for (auto i : values)
-            if (i.second >= 1)
-            {
-                for (int j = 1; j <= i.second; j++)
-                    ans.insert(i.first * j);
-            }
-        int last = 0;
-        for (auto i : ans)
-        {
-            if (i - last != 1)
-                break;
-            last = i;
-        }
-        int response = last!=1? ((last+1) + minPossible): last;
-        cout << response << endl;
-
         
+        if (!ok) cout << 1 << endl;
+        else
+        {
+            sum = 1;
+            
+            sort(v, v + n);
+            for (int i = 0 ; i < n ; ++i)
+            {
+                if (v[i] > sum) break;
+                sum += v[i];
+            }
+            cout << sum << endl;
+        }
     }
 }
+
