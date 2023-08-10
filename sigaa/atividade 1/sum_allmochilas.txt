@@ -1,0 +1,6 @@
+Para obter todos os valores possíveis da soma, utilizei um set, nele 
+não é possível ter valores repetidos, então, se o valor já estiver
+no set, ele não será adicionado novamente.
+Após isso utilizei uma função recursiva para chamar duas outras funções recursivas, 
+em que uma delas soma o valor atual, com o valor analisado e a outra não soma.
+Assim, é possível obter todas as possibilidades de soma.

@@ -33,42 +33,44 @@ using namespace std;
 #define INF 1e9 + 10
 
 typedef long long ll;
+#define oldint int
+#define int ll
 
 typedef vector<ll> vi;
 typedef pair<ll, ll> ii;
 typedef pair<ll, string> is;
+typedef pair<ii, string> iis;
 
 typedef vector<ii> vii;
-
+map<string, int> memoize = map<string, int>();
 signed main()
 {
     optimize;
-    int values[10005];    
-    int sum,n, cases;
-    
-    cin >> cases;
-    
-    while (cases--)
+    int x;
+    cin >> x;
+    priority_queue<iis> v;
+    for (int i = 0; i < x; i++)
     {
-        cin >> n;
-        bool ok = false;
-        for (int i = 0 ; i < n ; ++i)
-        {
-            cin >> values[i];   
-            if (values[i] == 1) ok = true;
-        }
-        if (!ok) cout << 1 << endl;
-        else
-        {
-            sum = 1;
-            sort(values, values + n);
-            for (int i = 0 ; i < n ; ++i)
-            {
-                if (values[i] > sum) break;
-                sum += values[i];
-            }
-            cout << sum << endl;
-        }
+        string s;
+        int a, b;
+        cin >> s >> a >> b;
+        v.push({{-b, a}, s});
+    }
+    vi ans;
+    while (!v.empty())
+    {
+        auto value = v.top();
+        int size = ans.size();
+        if (size != 0)
+            if (ans[size - 1] > value.first.second)
+                {
+                    if (v.empty()) break;
+                    v.pop();
+                    continue;
+                    }
+        ans.PB(-value.first.first);
+
+        cout << v.top().second << endl;
+        v.pop();
     }
 }
-

@@ -48,9 +48,8 @@ int limit;
 int maximum(int target, int current, int value, vector<ii> &values, vector <vi> &memo)
 {
     if (target == 0)
-    {
         return value;
-    } else if (target < 0)
+    if (target < 0)
         return INF;
     if (current == limit)
         return value;

@@ -1,0 +1,5 @@
+Para resolver o problema utilizei PD para obter os valores, as funções recursivas geram duas novas, que são:
+- adiciona o objeto ou 
+- não adiciona o objeto,
+
+Fazendo isso, é possível obter o valor máximo que pode ser carregado na mochila.

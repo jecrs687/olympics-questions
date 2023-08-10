@@ -18,8 +18,8 @@ int query(int pos, int i, int j, int L, int r){
 int esq = 2*pos;
 int dir = 2*pos + 1;
 int mid = (i+j)/2;
-if(i > r || j ‹ 1) return 0;
-if(i >= 1 && J <= r) return tree [pos];
+if(i > r || j < 1) return 0;
+if(i >= 1 && j <= r) return tree [pos];
 else{
 int ans = query(esq, i, mid, 1, r);
 ans += query (dir, mid+1, j, 1, r);

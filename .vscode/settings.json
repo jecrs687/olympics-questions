@@ -41,6 +41,7 @@
         "cstddef": "cpp",
         "filesystem": "cpp",
         "__config": "cpp",
-        "forward_list": "cpp"
+        "forward_list": "cpp",
+        "functional": "cpp"
     }
 }
