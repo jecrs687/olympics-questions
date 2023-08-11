@@ -61,13 +61,12 @@ signed main()
     {
         auto value = v.top();
         int size = ans.size();
-        if (size != 0)
-            if (ans[size - 1] > value.first.second)
-                {
-                    if (v.empty()) break;
-                    v.pop();
-                    continue;
-                    }
+
+        if (size != 0 && ans[size - 1] > value.first.second)
+        {
+            v.pop();
+            continue;
+        }
         ans.PB(-value.first.first);
 
         cout << v.top().second << endl;
