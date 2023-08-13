@@ -42,11 +42,34 @@ typedef vector<vvi> vvvi;
 
 typedef pair<ll, ll> ii;
 typedef pair<ll, string> is;
+
+/*
+Cada elemento terá três estados e eles seguem as variáveis x, y, z, que podem ser 0, 1 ou 2.
+0 significa que o elemento ainda não foi utilizado
+1 significa que ele está sendo utilizado
+2 significa que ele não pode mais ser utilizado
+
+A ideia é que, para cada elemento, você pode escolher se ele será utilizado ou não. 
+O objetivo do algorítmo é maximizar a quantidade de tarefas que serão realizadas.
+O algorítmo segue apenas 3 regras:
+1. Se o elemento x já tiver sido utilizado (2), então o algorítmo não irá acrescer o valor daquela recursão, 
+pois o elemento não pode ser utilizado.
+2. Se o elemento x estiver sendo utilizado (1), então o algorítmo irá acrescer o valor daquela recursão,
+já que no momento, aquele item do vetor está sendo utilizado.
+3. Se o elemento x não tiver sido utilizado (0), então o algorítmo irá escolher entre duas opções:
+    3.1. Não utilizar o elemento x, e continuar a recursão com o próximo elemento.
+    3.2. Utilizar o elemento x, e continuar a recursão com o próximo elemento, porém, 
+    agora o elemento x estará sendo utilizado (1) e o que anteriormente estava sendo utilizado (1) 
+    agora não poderá mais ser utilizado (2).
+*/
+
 int a;
 const int N = 3e5 + 10;
 int memo[N][3][3][3];
 int v[N];
-void resetMemo(int n)
+
+
+void resetMemo()
 {
     memset(memo, -1, sizeof(memo));
 }
@@ -95,7 +118,7 @@ signed main()
     for (int i = 0; i < a; i++)
         cin >> v[i];        
     
-    resetMemo(a);
+    resetMemo();
     int value = solve(0, 0, 0, 0);
 
     int ans = value;
