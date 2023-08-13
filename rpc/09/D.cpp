@@ -84,30 +84,32 @@ int solve(int index, int x, int y, int z)
     if (inMemory != -1) return inMemory;
 
     int thisValue = v[index];
-    int test1 = solve(index + 1, x, y, z);
+    int test = solve(index + 1, x, y, z);
     if (thisValue == 0)
     {
         if (y == 1) y = 2;
         if (z == 1) z = 2;
-        if (x == 2) return test1;
-        if (x == 1) inMemory = test1 + 1;
-        else inMemory = max(test1, 1 + solve(index + 1, 1, y, z));
+        if (x == 2) return test;
+        if (x == 1) inMemory = test + 1;
+        else inMemory = max(test, 1 + solve(index + 1, 1, y, z));
     }
+
     if (thisValue == 1)
     {
         if (x == 1) x = 2;
         if (z == 1) z = 2;
-        if (y == 2) return test1;
-        if (y == 1) inMemory = test1 + 1;
-        else inMemory = max(test1, 1 + solve(index + 1, x, 1, z));
+        if (y == 2) return test;
+        if (y == 1) inMemory = test + 1;
+        else inMemory = max(test, 1 + solve(index + 1, x, 1, z));
     }
+    
     if (thisValue == 2)
     {
         if (x == 1) x = 2;
         if (y == 1) y = 2;
-        if (z == 2) return test1;
-        if (z == 1) inMemory = test1 + 1;
-        else inMemory = max(test1, 1 + solve(index + 1, x, y, 1));
+        if (z == 2) return test;
+        if (z == 1) inMemory = test + 1;
+        else inMemory = max(test, 1 + solve(index + 1, x, y, 1));
     }
 
     return inMemory;
