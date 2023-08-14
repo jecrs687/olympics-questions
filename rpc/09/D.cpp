@@ -55,7 +55,6 @@ using namespace std;
 
 typedef long long ll;
 #define oldint int
-#define int ll
 
 typedef vector<ll> vi;
 typedef vector<vi> vvi;
@@ -79,52 +78,49 @@ void resetMemo()
 int solve(int index, int x, int y, int z)
 {
     if (index == a) return 0;
+    if(x == 2 && y == 2 && z == 2) return 0;
 
     int &inMemory = memo[index][x][y][z];
     if (inMemory != -1) return inMemory;
-
+    
     int thisValue = v[index];
-    int test = solve(index + 1, x, y, z);
+    index += 1;
+
+    inMemory = solve(index, x, y, z);
+    int lX = x, lY = y, lZ = z;
+    
+    if (x == 1) x = 2;
+    if (z == 1) z = 2;
+    if (y == 1) y = 2;
+
     if (thisValue == 0)
     {
-        if (y == 1) y = 2;
-        if (z == 1) z = 2;
-        if (x == 2) return test;
-        if (x == 1) inMemory = test + 1;
-        else inMemory = max(test, 1 + solve(index + 1, 1, y, z));
+        if (lX == 1) inMemory = inMemory + 1;
+        else if (lX == 0)  inMemory = max(inMemory, 1 + solve(index, 1, y, z));
     }
 
     if (thisValue == 1)
     {
-        if (x == 1) x = 2;
-        if (z == 1) z = 2;
-        if (y == 2) return test;
-        if (y == 1) inMemory = test + 1;
-        else inMemory = max(test, 1 + solve(index + 1, x, 1, z));
+        if (lY == 1) inMemory = inMemory + 1;
+        else if (lY == 0) inMemory = max(inMemory, 1 + solve(index, x, 1, z));
     }
     
     if (thisValue == 2)
     {
-        if (x == 1) x = 2;
-        if (y == 1) y = 2;
-        if (z == 2) return test;
-        if (z == 1) inMemory = test + 1;
-        else inMemory = max(test, 1 + solve(index + 1, x, y, 1));
+        if (lZ == 1) inMemory = inMemory + 1;
+        else if (lZ == 0)inMemory = max(inMemory, 1 + solve(index, x, y, 1));
     }
 
     return inMemory;
 }
-signed main()
+int main()
 {
 
     cin >> a;
+    for (int i = 0; i < a; i++) cin >> v[i];
 
-    for (int i = 0; i < a; i++)
-        cin >> v[i];        
-    
     resetMemo();
     int value = solve(0, 0, 0, 0);
 
-    int ans = value;
-    cout << ans << endl;
+    cout << value << endl;
 }
